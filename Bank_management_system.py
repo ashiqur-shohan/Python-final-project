@@ -126,31 +126,56 @@ currentUser = None
 while True:
     if currentUser == None:
         print("\n--->Welcome to Ar's Bank\n")
-        ch = input("\nLogin/Register (L/R): \n")
-        if ch == 'r' or ch == 'R':
-            type = input("savings account or Current account (sv/cu)")
-            name = input("Name: ")
-            email = input("Enter email : ")
-            address = input("Enter Address : ")
-            password = input("Password: ")
-            if type == 'sv':
-                currentUser = Account(name, password, email, address, type)
-            elif type == 'cu':
-                currentUser = Account(name, password, email, address, type)
+        print("--------------------------------")
+        print("1. Admin")
+        print("2. User")
+        print("3. Exit")
+        # ch = input("\nEnter your choice : \n")
+        while True:
+            try:
+                ch = int(input("\nEnter your choice : "))
+            except ValueError:
+                print("Please enter a valid option.")
             else:
-                print("Entered Wrong Option.")
+                break
+        if ch == 1:
+            print("admin username = admin, admin pass = 123")
+            username = input("Enter username : ")
+            password = input("Password: ")
+            if username == 'admin' and password == '123':
+                currentUser = 'admin'
 
-        elif ch == 'l' or ch == 'L':
-            acc = input("Admin / Acount Holder (ad / ac) : ")
-            if acc == 'ad':
-                username = input("Enter username : ")
-                password = input("Password : ")
-                if username == 'admin' and password == '123':
-                    currentUser = 'admin'
-                    # print('hi')
-                else:
-                    print("You have entered wrong username or password")
-            elif acc == 'ac':
+        elif ch == 2:
+            ch = input("Login or Register : (L/R) : ")
+
+            if ch == 'r' or ch == 'R':
+                while True:
+                    type = input("savings account or Current account (sv/cu)")
+                    if type == 'sv' or type == 'cu':
+                        break
+                    print("Wrong option")
+                name = input("Name: ")
+                email = input("Enter email : ")
+                address = input("Enter Address : ")
+                password = input("Password: ")
+                # if type == 'sv':
+                currentUser = Account(name, password, email, address, type)
+                # elif type == 'cu':
+                # currentUser = Account(name, password, email, address, type)
+                # else:
+                # print("Entered Wrong Option.")
+
+            elif ch == 'l' or ch == 'L':
+                # acc = input("Admin / Acount Holder (ad / ac) : ")
+                # if acc == 'ad':
+                #     username = input("Enter username : ")
+                #     password = input("Password : ")
+                #     if username == 'admin' and password == '123':
+                #         currentUser = 'admin'
+                #         # print('hi')
+                #     else:
+                #         print("You have entered wrong username or password")
+                # elif acc == 'ac':
                 email = input("Email : ")
                 password = input("Password : ")
                 flag = False
@@ -161,14 +186,16 @@ while True:
                         break
                 if flag == False:
                     print("Wrong email or password!!!")
-            else:
-                print("\nEntered wrong option")
+        elif ch == 3:
+            break
 
         else:
             print("\nYou have entered Wrong Option!!!Please try again\n")
     else:
         if currentUser == 'admin':
-            print("----------------------")
+            print("\n----------------------")
+            print("Welcome Admin")
+            print("----------------------\n")
             print("1. Create an account")
             print("2. Delete an account")
             print("3. All user accounts list")
@@ -181,17 +208,21 @@ while True:
             op = int(input("Chhose Option:"))
 
             if op == 1:
-                type = input("savings account or Current account (sv/cu)")
+                while True:
+                    type = input("savings account or Current account (sv/cu)")
+                    if type == 'sv' or type == 'cu':
+                        break
+                    print("Wrong option")
                 name = input("Name: ")
                 email = input("Enter email : ")
                 address = input("Enter Address : ")
                 password = input("Password: ")
-                if type == 'sv':
-                    Account(name, password, email, address, type)
-                elif type == 'cu':
-                    Account(name, password, email, address, type)
-                else:
-                    print("Entered wrong option")
+                # if type == 'sv':
+                Account(name, password, email, address, type)
+                # elif type == 'cu':
+                #     Account(name, password, email, address, type)
+                # else:
+                #     print("Entered wrong option")
 
             elif op == 2:
                 accNO = input("Enter account number : ")
@@ -218,7 +249,9 @@ while True:
             else:
                 print('Entered wrong option')
         else:
-            print("----------------------")
+            print("\n----------------------")
+            print(f"Welcome {currentUser.name}")
+            print("----------------------\n")
             print("1. Withdraw")
             print("2. Deposit")
             print("3. Check Balance")
@@ -227,7 +260,7 @@ while True:
             print("6. Transfer Money")
             print("7. Logout\n")
 
-            op = int(input("Chhose Option:"))
+            op = int(input("Chose Option:"))
 
             if op == 1:
                 amount = int(input("Enter withdraw amount:"))
